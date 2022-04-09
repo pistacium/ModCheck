@@ -1,7 +1,8 @@
 import wget
-from os import listdir, mkdir, path, remove
+from os import listdir, mkdir, path, remove, rmdir
 from os.path import isfile, join
 import shutil
+import json
 import yaml
 
 exists = isfile('legalMods.yaml')
@@ -74,6 +75,11 @@ with open('ModCheckSettings.yaml', encoding='utf8') as f:
 dirs = data['directories']
 sets = data['useMod']
 
+print('All files that are not marked as true (besides dynamic-fps) will be REMOVED from your mods folder.')
+print('Make sure that any other files in your mods folders which you would like to keep are saved elsewhere.')
+tmp = input("Press ENTER to continue.")
+print()
+
 if not (path.exists("tmp")):
     mkdir('tmp') 
 dl = {}
@@ -83,7 +89,7 @@ for mod in mods:
         dl[mod] = file
 names={}
 for d in dirs:
-    files = [f for f in listdir(d) if isfile(join(d, f))]
+    files = [f for f in listdir(d) if (isfile(join(d, f)) and f!='dynamic-menu-fps-0.1.jar')]
     for file in files:
         remove(d+'\\'+file)
 
