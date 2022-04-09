@@ -2,8 +2,7 @@
 Keep up to date with your legal speedrunning mods!
 
 
-Use by running executable or python file directly. Windows only support.  
-Currently only has 1.16 support, but more may come depending on how much people bug me for it.
+Supports windows and minecraft version 1.16.1, though other support may come if people bug me for it.
 
 
 Settings file is of yaml format.  
