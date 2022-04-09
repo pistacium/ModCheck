@@ -7,7 +7,8 @@ Supports windows and minecraft version 1.16.1, though other support may come if 
 
 
 Settings file is of yaml format.  
-Under "directories", put all your .minecraft/mods folder paths each on new lines. Each line should look like "- C:\path\to\.minecraft\mods"  
+Under "directories", put all your .minecraft/mods folder paths each on new lines. Each line should look like  
+"- C:\path\to\.minecraft\mods"  
 Under "useMod" each legal mod will be listed and either "true" or "false". If you want to use/update a certain mod, flag it to true. Otherwise, flag it to false.
 
 
