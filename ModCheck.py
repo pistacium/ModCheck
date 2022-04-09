@@ -1,8 +1,7 @@
 import wget
-from os import listdir, mkdir, path, remove, rmdir
+from os import listdir, mkdir, path, remove
 from os.path import isfile, join
 import shutil
-import json
 import yaml
 
 exists = isfile('legalMods.yaml')
