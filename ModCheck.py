@@ -22,7 +22,7 @@ exists = isfile(file)
 
 print()
 if not exists or new.lower()=='y' or new.lower()=='yes':
-    if not exists:
+    if not exists and (new.lower()=='n' or new.lower=='no'):
         tmp = input("Settings file not found, making new one. Press ENTER to continue.")
         print()
     with open('ModCheckSettings.yaml', 'w', encoding='utf8') as f:
@@ -79,6 +79,19 @@ print('All files that are not marked as true (besides dynamic-fps) will be REMOV
 print('Make sure that any other files in your mods folders which you would like to keep are saved elsewhere.')
 tmp = input("Press ENTER to continue.")
 print()
+baddirs=[]
+for d in dirs:
+    if not (path.exists(d)):
+        baddirs.append(d)
+
+if baddirs != []:
+    for d in baddirs:
+        print("The directory,")
+        print(d)
+        print("does not exist. Remove or fix this directory from your settings.")
+        print()
+    tmp = input("Press ENTER to leave program.")
+    exit()
 
 if not (path.exists("tmp")):
     mkdir('tmp') 
@@ -103,6 +116,7 @@ for d in dirs:
 
     addeds = list(set(new).difference(old))
     removeds = list(set(old).difference(new))
+    print()
     for added in addeds:
         print(added, "was added.")
     for removed in removeds:
