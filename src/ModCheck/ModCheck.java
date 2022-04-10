@@ -250,7 +250,7 @@ public class ModCheck {
             //this block does that
 
             File dir1 = new File(dir);
-            System.out.println(dir1.getName());
+
             if(dir1.getName().equals(".minecraft")){
                 dir1 = new File(dir1, "mods");
             }
@@ -270,7 +270,7 @@ public class ModCheck {
             for(int i = 0 ; i < dllist.length; i++){
                 //looping through files (and just files) in mods folder
                 File f = new File(tmpdir, dllist[i].getName());
-                if (!f.exists()){
+                if (!f.exists() && !(dllist[i].getName().equals("dynamic-menu-fps-0.1.jar"))){
                     //if the file in the mods folder is NOT in the ./tmp folder, delete it
                     dllist[i].delete();
                     if(verbose){System.out.println("Removed file: "+dllist[i].getName());}
