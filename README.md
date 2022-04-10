@@ -24,11 +24,11 @@ Under "useMod" each legal mod will be listed and either "true" or "false". If yo
 If the "verbose" setting is set to true, the program will run as normal and will require prompts.  
 If it is set to false, the program will run without any prompts or printouts (except if a directory doesn't exist).  
 Also, if a new mod is legalized, it will update your useMod and set it to true for the new mod (instead of asking you whether you want to use it).  
-ONLY SET VERBOSE TO FALSE IF YOU ARE SURE EVERYTHING IS WORKING.
+**ONLY SET VERBOSE TO FALSE IF YOU ARE SURE EVERYTHING IS WORKING.**
 
 ### Warning
-MAKE SURE to not leave any files you want to keep in your mods folder.  
-ALL OTHER FILES IN MODS FOLDER WILL BE DELETED.  
+**MAKE SURE** to not leave any files you want to keep in your mods folder.  
+**ALL OTHER FILES IN MODS FOLDER WILL BE DELETED.**  
 The exception to this is the dynamic-fps mod, since there is no Github page for it and also no updates for it, so it will not be tracked.
 
 ### Contact
