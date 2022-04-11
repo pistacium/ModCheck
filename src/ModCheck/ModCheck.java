@@ -126,7 +126,7 @@ public class ModCheck {
             System.out.println("Confirm that you are done configuring your settings by pressing ENTER.");
             reader.nextLine();
             setsobj =  (JSONObject) new JSONParser().parse(new FileReader("ModCheckSettings.json"));
-            verbose = false;
+            verbose = true;
         }
         //-----------------------------------Converting JSON to java stuff----------------------------------------------
         JSONArray direcobj = (JSONArray) setsobj.get("directories");
