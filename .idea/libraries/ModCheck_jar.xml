@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="ModCheck_jar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/out/artifacts/ModCheck_jar/ModCheck-v2.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/out/artifacts/ModCheck_jar/ModCheck-v2.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/out/artifacts/ModCheck_jar/ModCheck-v2.1-UNIX.zip!/" />
+      <root url="jar://$PROJECT_DIR$/out/artifacts/ModCheck_jar/ModCheck-v2.1-WINDOWS.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

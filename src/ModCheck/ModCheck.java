@@ -5,6 +5,7 @@ import java.io.*;
 import java.net.URL;
 import java.nio.file.*;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.json.JSONException;
 import org.json.simple.*;
@@ -16,20 +17,22 @@ import javax.swing.*;
 
 public class ModCheck {
     public static String getName(String url){
-        return url.split("/")[8];
-    } //converts github url to file name
+        //converts url to filename
+        String[] splits = url.split("/");
+        return splits[splits.length - 1];
+    }
+
     public static void downloadFile(URL url, String fileName) throws IOException {
         //downloads file
         File directory = new File("tmp");
-        //FileUtils.copyURLToFile(url, new File(directory, fileName));
+        FileUtils.copyURLToFile(url, new File(directory, fileName));
 
-        InputStream stream = url.openStream();
-        ProgressMonitorInputStream pmis = new ProgressMonitorInputStream(null, "downloading...", stream);
-
-        FileUtils.copyInputStreamToFile(pmis, new File(directory, fileName));
+        //InputStream stream = url.openStream();
+        //ProgressMonitorInputStream pmis = new ProgressMonitorInputStream(null, "downloading...", stream);
+        //FileUtils.copyInputStreamToFile(pmis, new File(directory, fileName));
 
     }
-    public static void createSettingsFile(Map<String,String> urls) throws JSONException {
+    public static void createSettingsFile(Map<String,String> urls, String version) throws JSONException {
         //Create scratch settings file
         JSONObject settings = new JSONObject();
         List<String> direcex = new ArrayList<String>();
@@ -44,12 +47,12 @@ public class ModCheck {
         settings.put("verbose", true);
 
 
-        updateSettingsFile(settings);
+        updateSettingsFile(settings, version);
 
     }
-    public static void updateSettingsFile(JSONObject setsobj){
+    public static void updateSettingsFile(JSONObject setsobj, String version){
         //remake settings file given the proper JSONObject
-        try (FileWriter setfile = new FileWriter("ModCheckSettings.json")){
+        try (FileWriter setfile = new FileWriter("ModCheckSettings-"+version+".json")){
             org.json.JSONObject json = new org.json.JSONObject(setsobj);
             setfile.write(json.toString(4));
             setfile.flush();
@@ -59,13 +62,30 @@ public class ModCheck {
     }
 
     public static void main(String[] args) throws Exception {
+        Scanner reader = new Scanner(System.in);
+        String version = "1.16";
+        if(args.length==1) {
+            version = args[0].toString();
+
+            if(!version.equals("1.15") && !version.equals("1.16") && !version.equals("1.17") && !version.equals("1.18")){
+                System.out.println(version+" is not a valid version. Press ENTER to exit the program.");
+                reader.nextLine();
+                System.exit(41);
+            }
+        }
+        else{
+            System.out.println("You must provide one and only one version! Press ENTER to exit the program.");
+            reader.nextLine();
+            System.exit(40);
+        }
+
         Map<String,String> urls = new LinkedHashMap<>();
-        Map<String, Boolean> useMod = new LinkedHashMap<>();
+        Map<String, Boolean> useMod = new ConcurrentHashMap<>();
         //List<String> names = new ArrayList<>();
 
         //----------------------------Download list of legal mods-------------------------------------------------------
-        String seturl = "https://github.com/pistacium/LegalMods/releases/download/mods/legalMods.json";
-        File modslist = new File("legalMods.json");
+        String seturl = "https://github.com/pistacium/LegalMods/releases/download/mods/legalModsTest.json";
+        File modslist = new File("legalModsTest.json");
 
         //If an old copy of legalmods.json still exists, delete it
         if(modslist.exists()){
@@ -75,8 +95,8 @@ public class ModCheck {
 
 
         //Read the legalmods file as a JSON
-        JSONObject legalMods =  (JSONObject) new JSONParser().parse(new FileReader("legalMods.json"));
-        JSONObject mods = (JSONObject) legalMods.get("1.16");
+        JSONObject legalMods =  (JSONObject) new JSONParser().parse(new FileReader("legalModsTest.json"));
+        JSONObject mods = (JSONObject) legalMods.get(version);
 
 
         for(Object entry : mods.entrySet()){
@@ -85,13 +105,13 @@ public class ModCheck {
         }
 
         //-----------------------------------Settings file--------------------------------------------------------------
-        File sets = new File("ModCheckSettings.json");
-        Scanner reader = new Scanner(System.in);
+        String setFileName = "ModCheckSettings-"+version+".json";
+        File sets = new File(setFileName);
         String yn = null;
         JSONObject setsobj;
         boolean verbose;
         if(sets.exists()) {
-            setsobj = (JSONObject) new JSONParser().parse(new FileReader("ModCheckSettings.json"));
+            setsobj = (JSONObject) new JSONParser().parse(new FileReader(setFileName));
             if(setsobj.containsKey("verbose")){
                 verbose = (boolean) setsobj.get("verbose");
             }
@@ -102,14 +122,14 @@ public class ModCheck {
 
             if (verbose) {
                 //If old version of settings exist, ask if user would like to keep using it or make a new one
-                System.out.println("Would you like to use your currently existing ModCheckSettings.json? (y/n) ");
+                System.out.println("Would you like to use your currently existing "+setFileName+"? (y/n) ");
                 yn = reader.nextLine();
                 if (Objects.equals(yn, "y") || Objects.equals(yn, "yes")) {
                     //If they want to use existing settings file
                     System.out.println("Using existing file.");
                 } else {
                     //If they wanna start from scratch, do that
-                    createSettingsFile(urls);
+                    createSettingsFile(urls, version);
                     System.out.println("Edit the new settings file by adding your directories and changing whether you are using certain mods or not.");
                     System.out.println("Default is set to True, meaning it will use all legal mods.");
                     System.out.println("Confirm that you are done configuring your settings by pressing ENTER.");
@@ -119,13 +139,13 @@ public class ModCheck {
         }
         else{
             //If they dont have a settings file already, then make one
-            createSettingsFile(urls);
-            System.out.println("A new ModCheckSettings.json has been created.");
+            createSettingsFile(urls, version);
+            System.out.println("A new "+setFileName+" has been created.");
             System.out.println("Edit the file by adding relevant directories and changing whether you are using certain mods or not.");
             System.out.println("Default is set to True, meaning it will use all legal mods.");
             System.out.println("Confirm that you are done configuring your settings by pressing ENTER.");
             reader.nextLine();
-            setsobj =  (JSONObject) new JSONParser().parse(new FileReader("ModCheckSettings.json"));
+            setsobj =  (JSONObject) new JSONParser().parse(new FileReader(setFileName));
             verbose = true;
         }
         //-----------------------------------Converting JSON to java stuff----------------------------------------------
@@ -184,18 +204,19 @@ public class ModCheck {
                 }
             }
         }
+        //List<String> toRem = null;
         for(Object mod : useMod.keySet()){
             //looping through settings
             if((!urls.containsKey(mod)) && (Objects.equals(yn, "y") || Objects.equals(yn, "yes"))){
                 //if user has a setting for a mod which isnt legal, remove said setting
                 if(verbose) {System.out.println(mod + " has been banned. It will be removed from the settings file.");}
                 useMod.remove(mod);
+                //toRem.add(mod);
                 ((JSONObject) setsobj.get("useMod")).remove(mod);
-
             }
         }
 
-        updateSettingsFile(setsobj); //update settings file after these changes
+        updateSettingsFile(setsobj, version); //update settings file after these changes
         //--------------------------------------Messing with files------------------------------------------------------
         if(verbose) {
             System.out.println("\nAll files which aren't set to true will be REMOVED from your mods folder.");
@@ -269,11 +290,12 @@ public class ModCheck {
             File[] dllist = dir1.listFiles(filefilter);      //list of files in instance directory / mods folder
             for(int i = 0 ; i < dllist.length; i++){
                 //looping through files (and just files) in mods folder
-                File f = new File(tmpdir, dllist[i].getName());
-                if (!f.exists() && !(dllist[i].getName().equals("dynamic-menu-fps-0.1.jar"))){
+                String name = dllist[i].getName();
+                File f = new File(tmpdir, name);
+                if (!f.exists()){    // && exception
                     //if the file in the mods folder is NOT in the ./tmp folder, delete it
                     dllist[i].delete();
-                    if(verbose){System.out.println("Removed file: "+dllist[i].getName());}
+                    if(verbose){System.out.println("Removed file: "+name);}
                     edited=true;
                 }
             }

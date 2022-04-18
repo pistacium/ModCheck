@@ -3,13 +3,13 @@
     <output-path>$PROJECT_DIR$/out/artifacts/ModCheck_jar</output-path>
     <root id="archive" name="ModCheck.jar">
       <element id="module-output" name="ModCheck" />
-      <element id="extracted-dir" path="$USER_HOME$/Documents/org.json.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$USER_HOME$/Documents/commons-io-2.11.0/commons-io-2.11.0.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$USER_HOME$/Documents/commons-io-2.11.0/commons-io-2.11.0-tests.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$USER_HOME$/Documents/commons-io-2.11.0/commons-io-2.11.0-javadoc.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$USER_HOME$/Documents/commons-io-2.11.0/commons-io-2.11.0-sources.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$USER_HOME$/Documents/commons-io-2.11.0/commons-io-2.11.0-test-sources.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$USER_HOME$/Documents/json-simple-1.1.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/jetbrains/annotations/20.1.0/annotations-20.1.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/out/artifacts/ModCheck_jar/ModCheck-v2.1-WINDOWS/ModCheck-v2.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/out/artifacts/ModCheck_jar/ModCheck-v2.1-UNIX/ModCheck-v2.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/out/artifacts/ModCheck_jar/ModCheck-v2.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/out/artifacts/ModCheck_jar/ModCheck-v2.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/out/artifacts/ModCheck_jar/ModCheck-v2.1-UNIX.zip" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/out/artifacts/ModCheck_jar/ModCheck-v2.1-WINDOWS.zip" path-in-jar="/" />
     </root>
   </artifact>
 </component>
