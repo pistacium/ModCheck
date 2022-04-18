@@ -3,17 +3,19 @@
 If you are just starting out, you can use this to download all legal mods! Or, you can use this to keep up to date with all your mods by running this script periodically! I will be remotely updating the list of legal mods, so no need to download a new version of this program everytime.
 
 ## Support
-Supports minecraft version 1.16.1, though other support may come if people bug me for it.  
+Supports minecraft versions 1.15-1.18, though other support may come if people bug me for it.  
 Should support windows and anything that has a bash shell (so pretty much anything unix including mac)  
 
 ## Usage
 For windows, download the windows release and unzip. Inside the folder, double click on "runModCheck.bat".
 For unix, download the unix release and unzip. Inside the folder, double click on "runModCheck.sh".  
 
-If for some reason the .bat or .sh script are not working, you may run from the command line with the command  
-```"java -jar ModCheck-v2.0.jar"```  
+To edit the minecraft version, open the .bat or .sh file and change 1.16 to any other 1.15+ version. You can create unique copies of the .bat or .sh file for whichever versions you want to update often.
 
-If your verbosity is set to false, you may double click on the .jar file itself, but any printouts will not show up. If something goes wrong, you won't be able to tell.  
+If for some reason the .bat or .sh script are not working, you may run from the command line with the command  
+```java -jar ModCheck-v3.0.jar VERSION``` where VERSION is any minecraft version 1.15+ (i.e. 1.15, 1.16, 1.17, or 1.18).  
+
+Set verbosity to false to run with no prompts, inputs, printouts, or anything of the sort (barring some errors). You still must run the .bar or .sh or from the command line in order to input minecraft version.  
 If you do try to run it like this, and nothing happens, set verbose to true and try running the .bat or .sh file, or from the command line. This may tell you what went wrong.
 
 ## Settings
@@ -29,7 +31,6 @@ Also, if a new mod is legalized, it will update your useMod and set it to true f
 ## Warning
 **MAKE SURE** to not leave any files you want to keep in your mods folder.  
 **ALL OTHER FILES IN MODS FOLDER WILL BE DELETED.**  
-The exception to this is the dynamic-fps mod, since there is no Github page for it and also no updates for it, so it will not be tracked.
 
 ## Contact
 For any issues, message me at meera#8941.
