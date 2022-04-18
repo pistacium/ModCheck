@@ -84,8 +84,8 @@ public class ModCheck {
         //List<String> names = new ArrayList<>();
 
         //----------------------------Download list of legal mods-------------------------------------------------------
-        String seturl = "https://github.com/pistacium/LegalMods/releases/download/mods/legalModsTest.json";
-        File modslist = new File("legalModsTest.json");
+        String seturl = "https://github.com/pistacium/LegalMods/releases/download/mods/legalMods.json";
+        File modslist = new File("legalMods.json");
 
         //If an old copy of legalmods.json still exists, delete it
         if(modslist.exists()){
@@ -95,7 +95,7 @@ public class ModCheck {
 
 
         //Read the legalmods file as a JSON
-        JSONObject legalMods =  (JSONObject) new JSONParser().parse(new FileReader("legalModsTest.json"));
+        JSONObject legalMods =  (JSONObject) new JSONParser().parse(new FileReader("legalMods.json"));
         JSONObject mods = (JSONObject) legalMods.get(version);
 
 
